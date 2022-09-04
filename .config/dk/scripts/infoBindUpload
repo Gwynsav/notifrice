@@ -1,0 +1,45 @@
+#!/bin/sh
+# Time ====================================================================================================
+dstm=$(date '+%I:%M %p --- %A %d/%m/%y')
+
+# Bluetooth State =========================================================================================
+blst=$(bluetoothctl show | grep "Powered:")
+[ "${blst##* }" = "yes" ] && blic="" || blic=""
+
+# Net state ===============================================================================================
+dvc="wlan0"
+ntin=$(iwctl station ${dvc} show)
+ntst=${ntin##*State                 } && ntst=${ntst%% *}
+[ "$ntst" = "connected" ] && ntic="" || ntic=""
+
+# Weather ================================================================================================= 
+# input your weather stuff here
+KEY=""
+LAT=""
+LON=""
+wttr=$(curl -sf "api.openweathermap.org/data/2.5/weather?lat=$LAT&lon=$LON&appid=$KEY&units=metric")
+wdesc=$(echo $wttr | jq -r ".weather[0].main")
+wtemp=$(echo $wttr | jq ".main.temp") && wtemp=${wtemp%%.*}
+wfeel=$(echo $wttr | jq ".main.feels_like") && wfeel=${wfeel%%.*}
+time=$(date '+%H')
+
+wicon=""
+if [ "$wdesc" = "Clouds" ]; then
+	[ $time -gt 20 -o $time -lt 08 ] && wicon="" || wicon=""
+elif [ "$wdesc" = "Clear" ]; then
+	[ $time -gt 20 -o $time -lt 08 ] && wicon="" || wicon=""
+elif [ "$wdesc" = "Rain" ]; then
+	[ $time -gt 20 -o $time -lt 08 ] && wicon="" || wicon=""
+fi
+[ -z "$wtemp" ] && wtempd="n/a" || wtempd="$wtemp°C"
+[ -z "$wtemp" ] && wfeeld="n/a" || wfeeld="$wfeel°C"
+
+# Volume ==================================================================================================
+syvl=$(amixer sget Master)
+vllv=${syvl#*[} && vllv=${vllv%%%*}
+vlst=${syvl##*] [} && vlst=${vlst%%]*} 
+[ "$vlst" = "off" ] && vlic="" || vlic=""
+
+# Notification ===========================================================================================
+dunstify -h string:x-dunst-stack-tag:information \
+	"$dstm" "$wicon $wtempd ($wfeeld) --- $blic $ntic $vlic $vllv%"

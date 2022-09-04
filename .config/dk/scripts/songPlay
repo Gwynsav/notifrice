@@ -1,0 +1,21 @@
+#!/bin/sh
+case $1 in
+	"play")
+		playerctl play-pause ;;
+	"next")
+	  playerctl next ;;
+	"prev")
+		playerctl previous ;;
+esac
+
+song=$(playerctl metadata --format '{{title}}')
+artist=$(playerctl metadata --format '{{artist}}')
+status=$(playerctl status)
+pos=$(playerctl position) && pos=${pos%%.*}
+dur=$(playerctl metadata mpris:length) && dur=${dur%000000*}
+[ "$status" = "Playing" ] && status="play.svg" || status="pause.svg"
+time=$((pos*100/dur))
+
+dunstify -h string:x-dunst-stack-tag:player \
+	-i "$HOME/.local/share/icons/Reversal-dark/actions/22/currenttrack_$status" \
+	"$song" "<i>$artist</i>"

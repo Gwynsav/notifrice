@@ -1,0 +1,86 @@
+## MISC ########################################################
+## APPLICATIONS ==========================
+# launcher and power
+super {_,+ shift} + p
+	{rofi -show drun -theme config.rasi,sh $HOME/.config/rofi/powermenu/power.sh}
+
+# terminal
+super + Return
+	st
+
+# editor and file browser
+super + {_,shift +} e
+  st -e {ranger,nvim}
+
+# task manager
+super + Escape
+  st -e htop
+
+## ACTIONS ===============================
+# volume
+{_,alt +} XF86Audio{RaiseVolume,LowerVolume,Mute}
+	sh ~/.config/dk/scripts/{sysVol,songVol} {up,down,mute}
+
+# music play
+XF86Audio{Play,Next,Prev}
+	sh ~/.config/dk/scripts/songPlay {play,next,prev}
+
+# screenshot
+{_,shift} + Print
+	scrot {-s -f,_} '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
+
+# keyboard language, bluetooth toggle, and info notification (it doesn't make sense, and it doesn't need to)
+super + {u,b,r}
+	sh $HOME/.config/dk/scripts/{language.sh,blueToggle,infoBind}
+
+## WINDOW MANAGER and SXHKD CONTROL ###########################
+# reload sxhkd
+super + alt + r
+	pkill -USR1 -x sxhkd
+
+# reload dkrc
+super + ctrl + r
+	dkcmd restart
+
+## WINDOW MANAGER KEYBINDINGS #################################
+# focus next or previous window
+super + {j,k}
+	dkcmd win focus {next,prev}
+
+# close window
+super + q
+	dkcmd win kill
+
+# swap tiled window in/out of master, cycle tiled windows in place
+super + {_,shift +} Tab
+        dkcmd win {swap,cycle}
+
+## LAYOUTS
+# change active WORKSPACE layout
+super + {n,m}
+	sh $HOME/.config/dk/scripts/layoutcycle {tiling,mono}
+
+# toggle floating, sticky or fullscreen WINDOW mode
+super + {s,shift + s,f}
+	dkcmd win {float,stick,full}
+
+## WINDOW MANIPULATION
+# move window, signed (+/-) for relative changes
+super + shift + {h,j,k,l}
+	dkcmd win resize {x=-20,y=+20,y=-20,x=+20}
+
+# resize window, signed (+/-) for relative changes
+super + ctrl + {h,j,k,l}
+	dkcmd win resize {w=-20,h=-20,h=+20,w=+20}
+
+# move the active window up/down the stack
+super + shift + {k,j}
+	dkcmd win mvstack {up,down}
+
+# view or send to a workspace (by number)
+super + {_,shift +} {1-7}
+	dkcmd ws {view,send} {1-7} && $HOME/.config/dk/scripts/getWorkspacesDK
+
+# change number of windows in master or first stack
+super + {_,shift +} {i,o}
+	dkcmd set {master,stack} {+1,-1}

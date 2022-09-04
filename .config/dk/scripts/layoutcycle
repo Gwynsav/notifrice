@@ -1,0 +1,10 @@
+#!/bin/sh
+lo=$(dkcmd status type=layout num=1)
+
+case $1 in
+  "tiling")
+    [ "$lo" = "tile" ] && mode="tstack" || mode="tile" ;;
+  "mono")
+    [ "$lo" = "mono" ] && mode="tile" || mode="mono" ;;
+esac
+dkcmd set layout $mode

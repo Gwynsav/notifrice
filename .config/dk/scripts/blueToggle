@@ -1,0 +1,6 @@
+#!/bin/sh
+status=$(bluetoothctl show | grep "Powered:")
+[ "${status##* }" = "yes" ] && icon="Bluetooth is OFF" || icon="Bluetooth is ON"
+[ "${status##* }" = "yes" ] && bluetoothctl power off || bluetoothctl power on
+dunstify -h string:x-dunst-stack-tag:bluetooth \
+	-i $HOME/.local/share/icons/Reversal-dark/devices/22/bluetooth.svg "$icon"

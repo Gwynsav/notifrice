@@ -1,0 +1,51 @@
+#!/bin/sh
+## WM STARTUP STUFF ##############################################################################
+logfile="$HOME/.dkrc.log"
+[ -d "$HOME/.local/share/xorg" ] && logfile="$HOME/.local/share/xorg/dkrc.log"
+: > "$logfile"
+
+if hash sxhkd >/dev/null 2>&1; then
+	pkill sxhkd
+	sxhkd -c "$HOME/.config/dk/sxhkdrc" &
+fi
+
+## WINDOW MANAGER CONFIG #########################################################################
+{ # compound command to redirect all output
+	# workspace settings
+	dkcmd set numws=7
+	dkcmd set ws=_ apply pad t=8 l=8 r=8 b=8 layout=tile master=1 stack=4 gap=8 msplit=0.58 ssplit=0.5
+	dkcmd set ws=6 pad t=48 l=48 r=48 b=48
+	# global settings
+	dkcmd set focus_open=true focus_urgent=true focus_mouse=true
+	dkcmd set tile_tohead=0 tile_hints=false #new windows go to the bottom of the stack
+	dkcmd set smart_gap=false smart_border=false #border and gaps on monocle
+	dkcmd set mouse mod=super move=button1 resize=button3
+	# borders
+	dkcmd set border width=3 outer_width=0 \
+		colour focus='#697275' unfocus='#363f43' urgent='#ee6a70' \
+		outer_focus='#0b0f10' outer_unfocus='#0b0f10' outer_urgent='#0b0f10'
+	# window rules
+	dkcmd rule class="^ripcord$" ws=6
+  dkcmd rule class="^lutris$" ws=7 && dkcmd rule class="^steam$" ws=7 && dkcmd rule class="^heroic$" ws=7
+	dkcmd rule class="^thunar$" float=true
+	dkcmd rule apply '*'
+} >> "$logfile" 2>&1 # append responses
+
+## AUTOSTART ####################################################################################
+start() { killall "$1" && sleep 1.0; "$@" & }
+
+# perm
+start dunst 
+# once
+hsetroot -cover ~/Pictures/wallpapers/SnowyWoods.jpg &
+xsetroot -cursor_name left_ptr &
+./scripts/nvidiaconf.sh &
+start openrgb -p kizu
+
+## ERROR NOTIFICATION ###########################################################################
+if grep -q 'error:' "$logfile"; then
+	hash notify-send && notify-send -t 0 -u critical "dkrc has errors" \
+		"$(awk '/error:/ {sub(/^error: /, ""); gsub(/</, "\<"); print}' "$logfile")"
+	exit 1
+fi
+exit 0
