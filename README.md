@@ -42,3 +42,5 @@ $ make
 ```
 Then just add `dbus-run-session dk` to your `.xinitrc` file.
 You should also install **VictorMono Nerd Font** to `/usr/share/fonts` and run `fc-cache -vf`, and **Reversal Dark** icons to `.local/share/icons`(used in the scripts) or `/usr/share/icons/`. You can also install **kizu's GTK theme**, as it uses the same color palette as the rest of the rice.
+
+After all of that is done, the files in this repo just go in your homedir and that's it.
