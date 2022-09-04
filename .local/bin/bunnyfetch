@@ -1,0 +1,54 @@
+#!/bin/bash
+
+f=3 b=4
+for j in f b; do
+  for i in {0..7}; do
+    printf -v $j$i %b "\e[${!j}${i}m"
+  done
+done
+d=$'\e[1m'
+t=$'\e[0m'
+v=$'\e[7m'
+
+# Items
+h=wm
+wmname="$(xprop -id $(xprop -root -notype | awk '$1=="_NET_SUPPORTING_WM_CHECK:"{print $5}') -notype -f _NET_WM_NAME 8t | grep "WM_NAME" | cut -f2 -d \")"
+
+k=kr
+kernel="$(uname -r)" && kernel=${kernel%%_*}
+
+sh=sh
+shell=$(basename $(readlink -f /bin/sh))
+
+wm=wm
+wman=$(wmctrl -m | grep Name:) && wman=${wman##* }
+
+o=os
+os="$(cat "/etc/os-release" | grep -w "ID=" | tr -d '"')" && os=${os#*=}
+
+p=pk
+pkg="$(xbps-query -l | wc -l)"
+
+th=th
+thm=$(gsettings get org.gnome.desktop.interface gtk-theme | tr -d ''\') && thm=${thm%-*}
+
+tr=tr
+term=$(ps -o comm= -p "$(($(ps -o ppid= -p "$(($(ps -o sid= -p "$$")))")))")
+
+colors=$(for i in {0..7}; do echo -en "\e[${1}$((30 + $i))m  "; done)
+
+day=$(date -u +%A)
+name=$(whoami)
+
+# (\ /)
+# ( . .)
+# c(")(")
+
+tput clear
+cat << EOF
+
+  (\ /)    $v$k$t ~ $kernel
+  ( $d. .$t)   $v$p$t ~ $pkg
+  c($f1"$t)($f1"$t)  $v$tr$t ~ $term
+
+EOF
