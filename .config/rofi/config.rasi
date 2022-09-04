@@ -1,0 +1,72 @@
+@import "colors.rasi"
+
+configuration{
+    font: "VictorMono Nerd Font 9";
+    drun-display-format: "{name}";
+    show-icons: true;
+    icon-theme: "Reversal-dark";
+    terminal: "st";
+    disable-history: true;
+}
+
+window {
+    height: 48%;
+    width: 25%;
+    location: center;
+    anchor: center;
+    y-offset: -40px;
+
+    padding: 0 0 0 36px;
+    background-color: @cbg;
+}
+
+mainbox {
+    background-color: @lbg;
+    padding: 20px 15px;
+}
+
+inputbar {
+    children: [entry];
+    background-color: @bg;
+    margin: 10px;
+}
+
+entry {
+    padding: 6px;
+    margin: 5px;
+    placeholder: "";
+    text-color: @blu;
+    background-color: @bg;
+}
+
+listview {
+    margin: 20px 15px 0px 15px;
+    spacing: 12;
+
+    columns: 3;
+    background-color: @lbg;
+}
+
+element {
+    orientation: vertical;
+    background-color: @lbg;
+    text-color: @abg;
+    padding: 10px 5px;
+}
+
+element-text, element-icon {
+   background-color: inherit;
+   text-color: inherit;
+   vertical-align: 0.5;
+   horizontal-align: 0.5;
+}
+
+element-icon {
+   size: 48px;
+   margin-bottom: 2px;
+}
+
+element.selected {
+    background-color: @cbg;
+    text-color: @fg;
+}

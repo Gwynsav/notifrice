@@ -1,0 +1,14 @@
+* {
+    bg:         #0b0f10;
+    lbg:        #131718;
+    cbg:        #151a1c;
+    abg:        #697275;
+    fg:         #c5c8c9;
+
+    red:        #ee6a70;
+    grn:        #96d6b0;
+    ylw:        #ffb29b;
+    blu:        #7ba5dd;
+    mag:        #cb92f2;
+    cya:        #7fc8db;
+}

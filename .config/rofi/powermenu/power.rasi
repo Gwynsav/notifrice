@@ -1,0 +1,48 @@
+@import "../colors.rasi"
+
+configuration{
+    font: "VictorMono Nerd Font 50";
+    drun-display-format: "{name}";
+    disable-history: true;
+    hide-scrollbar: false;
+}
+
+window {
+    height: 12%;
+    width: 20%;
+    location: center;
+    anchor: center;
+    y-offset: -40px;
+
+    background-color: @cbg;
+    padding: 0 0 0 30px;
+}
+mainbox {
+    background-color: @lbg;
+    padding: 10px 13px;
+    children: [listview];
+}
+
+listview {
+    layout: horizontal;
+    spacing: 1%;
+    padding: 0 10px;
+    background-color: @lbg;
+}
+
+element {
+    background-color: @lbg;
+    text-color: @ylw;
+    padding: 5px;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+}
+element-text {
+   background-color: inherit;
+   text-color: inherit;
+   padding: 8px;
+   vertical-align: 0.5;
+}
+element.selected {
+    text-color: @red;
+}
