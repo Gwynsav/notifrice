@@ -37,10 +37,8 @@ start() { killall "$1" && sleep 1.0; "$@" & }
 # perm
 start dunst 
 # once
-hsetroot -cover ~/Pictures/wallpapers/SnowyWoods.jpg &
+hsetroot -cover ~/.config/wallpapers/SnowyWoods.jpg &
 xsetroot -cursor_name left_ptr &
-./scripts/nvidiaconf.sh &
-start openrgb -p kizu
 
 ## ERROR NOTIFICATION ###########################################################################
 if grep -q 'error:' "$logfile"; then
