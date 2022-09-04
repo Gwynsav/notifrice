@@ -6,7 +6,7 @@ This is a fairly low effort rice that I'm currently working on, it's fairly simp
 ## Dependencies
 ### Applications
 - **[dk](https://bitbucket.org/natemaia/dk/src/master/)** and **dunst** for obvious reasons.
-- **hsetroot* for Wallpaper setter.
+- **hsetroot** for Wallpaper setter.
 - **bluez** and **iwd** for Bluetooth and Networking respectively.
 - **alsa-utils** and **playerctl** for Sound and Music.
 - **curl** and **jq** for cropping the Weather information.
