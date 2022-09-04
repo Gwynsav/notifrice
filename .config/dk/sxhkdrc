@@ -26,8 +26,8 @@ XF86Audio{Play,Next,Prev}
 	sh ~/.config/dk/scripts/songPlay {play,next,prev}
 
 # screenshot
-{_,shift} + Print
-	scrot {-s -f,_} '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
+Print
+	maim -s | xclip -selection clipboard -t image/png
 
 # keyboard language, bluetooth toggle, and info notification (it doesn't make sense, and it doesn't need to)
 super + {u,b,r}
