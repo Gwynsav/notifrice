@@ -1,7 +1,7 @@
 # Welcome
 This is a fairly low effort rice that I'm currently working on, it's fairly simple. It just uses a Window Manager (**dk**) and a Notification Daemon (**dunst**) and that's about it.
 
-![showcase](./showcase.png)
+![showcase](./image.png)
 
 ## Dependencies
 ### Applications
