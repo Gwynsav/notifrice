@@ -6,6 +6,7 @@ This is a fairly low effort rice that I'm currently working on, it's fairly simp
 ## Dependencies
 ### Applications
 - **[dk](https://bitbucket.org/natemaia/dk/src/master/)** and **dunst** for obvious reasons.
+- **hsetroot* for Wallpaper setter.
 - **bluez** and **iwd** for Bluetooth and Networking respectively.
 - **alsa-utils** and **playerctl** for Sound and Music.
 - **curl** and **jq** for cropping the Weather information.
@@ -23,11 +24,11 @@ Install the dependencies, most of which are in official repos for most distros.
 
 For **Arch**:
 ```
-# pacman -S dunst bluez bluez-utils iwd alsa-utils playerctl curl jq rofi ttf-sarasa-gothic nodejs-material-design-icons
+# pacman -S dunst hsetroot bluez bluez-utils iwd alsa-utils playerctl curl jq rofi ttf-sarasa-gothic nodejs-material-design-icons
 ```
 For **Void**:
 ```
-# xbps-install -S dunst bluez iwd alsa-utils playerctl curl jq rofi font-sarasa-gothic font-material-design-icons-ttf
+# xbps-install -S dunst hsetroot bluez iwd alsa-utils playerctl curl jq rofi font-sarasa-gothic font-material-design-icons-ttf
 ```
 dk is not packaged, and therefore must be built from source. Go to dk's repo, install its dependencies, and then clone and build the program.
 ```
