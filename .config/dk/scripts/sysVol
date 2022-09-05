@@ -1,0 +1,18 @@
+#!/bin/sh
+case $1 in
+	"up")
+           amixer sset Master 3%+
+           stt=$(amixer sget Master) && stt=${stt#*[} && lvl=${stt%%] [*}
+           ico="audio-volume-high.svg" ;;
+	"down")
+           amixer sset Master 3%- 
+           stt=$(amixer sget Master) && stt=${stt#*[} && lvl=${stt%%] [*}
+           ico="audio-volume-low.svg" ;;
+	"mute")
+           amixer sset Master toggle
+           stt=$(amixer sget Master) && stt=${stt##*[} && stt=${stt%%]*}
+           [ "$stt" = "on" ] && lvl="Unmuted" || lvl="Muted" 
+           [ "$stt" = "on" ] && ico="audio-volume-high.svg" || ico="audio-volume-muted.svg" ;; 
+esac
+dunstify -h string:x-dunst-stack-tag:sysvol \
+	-i "$HOME/.local/share/icons/Reversal-dark/status/22/$ico" "Audio" "Volume set to <b>$lvl</b>"
