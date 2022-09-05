@@ -1,5 +1,5 @@
 #!/bin/sh
-lang=$(setxkbmap -query | grep "layout:") && lang=${lang##* }
+lang=$(setxkbmap -query) && lang=${lang##* }
 [ "$lang" = "us" ] && lang="latam" || lang="us"
 [ "$lang" = "us" ] && stat="American English" || stat="Latinamerican Spanish"
 
