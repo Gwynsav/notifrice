@@ -47,7 +47,7 @@ You should also install **VictorMono Nerd Font** to `/usr/share/fonts` and run `
 This repo also includes my custom build of `st`. To install it, run:
 ```
 $ cd .config/st-0.8.5/
-# This requires you to have installed all of st's make dependencies.
+## This requires you to have installed all of st's make dependencies.
 # make clean install
 ```
 
